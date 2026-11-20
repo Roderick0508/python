@@ -164,14 +164,16 @@ def calculate_statistics(sensor_values):
 
 
 def find_outliers(sensor_values, alert_threshold):
-    """deze functie telt het aantal readings dat boven de alert threshold ligt. Dit wordt gedaan met np.sum en een boolean check.
-    Ook telt het aantal duplicaten in de readings. Dit wordt gedaan door met de np.sum te kijken welke boven de alert threshold liggen. 
+    """deze functie telt het aantal readings dat boven de alert threshold ligt. Dit wordt gedaan met np.sum en een boolean check. 
+    Dit wordt gedaan door met de np.sum te kijken welke boven de alert threshold liggen. 
     Deze True values worden opgeteld en teruggegeven in een tuple."""
     outliers= np.sum(sensor_values > alert_threshold)
-    print("Number of readings above threshold:", len(outliers))
+    mask = sensor_values > alert_threshold
+    outliers = sensor_values[mask]
+    count = np.sum(mask)
+    print("Number of readings above threshold:", count)
     print("Readings above threshold:", outliers)
     return outliers
-
 
 #__4__VISUALIZATION__ -----------------------------------------------------
 
