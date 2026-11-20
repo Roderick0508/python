@@ -1,1 +1,2 @@
-#The program is dependent on correct input from the user. Therefore the program will not run if the user does not provide the correct input.
+numpy
+matplotlib

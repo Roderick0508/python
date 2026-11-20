@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt 
 import csv as csv
-
+import random
 
 #__1__USER INPUT__ /__6__ TASK SELECTION/ __8__ERROR HANDLING__ ---------------------------------------------
 
@@ -129,12 +129,19 @@ def get_user_input():
 #__2__GENERATE SENSOR VALUES__ ---------------------------------------------
 def generate_readings(num_of_readings, min_sensor_value, max_sensor_value):
     """Deze functie genereert een lijst met willekeurige getallen. Dit wordt gedaan op basis van 3 invoer parameters. 
-    Deze bepalen de hoeveelheid gegenereerde getallen en de min en max waarden. Dit wordt direct gedaan met de np.randomo.uniform functie.
+    Deze bepalen de hoeveelheid gegenereerde getallen en de min en max waarden. Dit wordt direct gedaan met de randomo.uniform functie.
     Uniform betekent dat de kans op een getal tussen de min en max gelijk is. Ook genereerd het komma getallen. 
-    Vervolgens komen deze getallen in een lijst genaamd sensor_values."""
-    sensor_values = np.random.uniform(min_sensor_value, max_sensor_value, num_of_readings)
+    Door de seed zijn de sensor_values reproduceerbaar. Vervolgens komen deze getallen in een lijst genaamd sensor_values."""
+
+    random.seed(66)
+    sensor_values = []
+    for i in range(num_of_readings):
+            sensor_values.append(random.uniform(min_sensor_value, max_sensor_value))
+    sensor_values = np.array(sensor_values)
     print(sensor_values)
     return sensor_values
+
+
 
 
 #__3__ANALYSING WITH NUMPY__ -----------------------------------------------
@@ -160,9 +167,10 @@ def find_outliers(sensor_values, alert_threshold):
     """deze functie telt het aantal readings dat boven de alert threshold ligt. Dit wordt gedaan met np.sum en een boolean check.
     Ook telt het aantal duplicaten in de readings. Dit wordt gedaan door met de np.sum te kijken welke boven de alert threshold liggen. 
     Deze True values worden opgeteld en teruggegeven in een tuple."""
-    num_above_alert_threshold = np.sum(sensor_values > alert_threshold)
-    print("Number of readings above alert threshold:", num_above_alert_threshold)
-    return num_above_alert_threshold
+    outliers= np.sum(sensor_values > alert_threshold)
+    print("Number of readings above threshold:", len(outliers))
+    print("Readings above threshold:", outliers)
+    return outliers
 
 
 #__4__VISUALIZATION__ -----------------------------------------------------
