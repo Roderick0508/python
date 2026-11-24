@@ -8,6 +8,8 @@ import random
 
 
 def ask_task_selection():   
+    """Deze functie vraagt om een keuze voor de programma uitvoer. Als de keuze niet in de lijst voor komt wordt er een error geprint. 
+    Anders wordt het gereturned."""
     while True:
         choice = input("Would you like to load the previous readings from the CSV file or generate new readings? (load/generate): ")
         if choice in ["load", "generate"]:
@@ -31,7 +33,7 @@ def load_readings(filename):
         for row in reader:
             sensor_values.append(float(row[1]))
             if settings is None:  
-                settings = (row[2], float(row[3]), float(row[4]), float(row[5]))
+                settings = (row[1], float(row[3]), float(row[4]), float(row[5]))
     except FileNotFoundError:
         print(f"File '{filename}' not found. Generate readings first.")
         return None
@@ -187,7 +189,7 @@ def plot_histogram(sensor_values, min_sensor_value, max_sensor_value, alert_thre
     plt.title(f"{sensor_selection.capitalize()} Sensor Readings Histogram")
     plt.xlabel("Sensor Values")
     plt.ylabel("Frequency")
-    plt.text(alert_threshold, plt.ylim()[1]*0.8, f'Alert Threshold: {alert_threshold}', color='red', rotation=0)
+    plt.text(alert_threshold, plt.ylim()[1]*1.1, f'Alert Threshold: {alert_threshold}', color='red', rotation=0)
     plt.show(block=False)
 
 
