@@ -21,9 +21,9 @@ again later.
 ## Installation
 
 ```bash
-git clone <your-repository-url>
-cd sensor-analysis
-pip install -r requirements.txt
+git clone <your-repository-url> 
+cd sensor-analysis 
+pip install -r requirements.txt 
 ```
 
 ## Usage
