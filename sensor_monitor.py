@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt 
-import csv as csv
+import csv
 import random
 
 #__1__USER INPUT__ /__6__ TASK SELECTION/ __8__ERROR HANDLING__ ---------------------------------------------
@@ -168,7 +168,7 @@ def calculate_statistics(sensor_values):
 def find_outliers(sensor_values, alert_threshold):
     """deze functie telt het aantal readings dat boven de alert threshold ligt. Dit wordt gedaan met np.sum en een boolean check. 
     Dit wordt gedaan door met de np.sum te kijken welke boven de alert threshold liggen. 
-    Deze True values worden opgeteld en teruggegeven in een tuple."""
+    Deze True values worden opgeteld en teruggegeven in een tuple. De alert threshold krijgt een label en wordt getoond in de legenda met plt.legend."""
     outliers= np.sum(sensor_values > alert_threshold)
     mask = sensor_values > alert_threshold
     outliers = sensor_values[mask]
@@ -182,30 +182,31 @@ def find_outliers(sensor_values, alert_threshold):
 def plot_histogram(sensor_values, min_sensor_value, max_sensor_value, alert_threshold, sensor_selection): 
     """Deze functie maakt een staafdiagram van de sensor readings. Dit wordt gedaan met matplotlib.pyplot. De histogram wordt gemaakt met plt.hist op een eigen figure functie.
     De bins(staven) worden gemaakt met np.arange. De alert threshold wordt weergegeven met een rode stipppellijn die de funcite axvline plot. 
-    Ook wordt er een titel, x en y as label toegevoegd. De alert threshold wordt ook weergegeven met plt.text."""
+    Ook wordt er een titel, x en y as label toegevoegd. """
     plt.figure()
-    plt.hist(sensor_values, bins=np.arange(min_sensor_value - 0.5, max_sensor_value + 1.5, 1), rwidth=0.8, color='steelblue', edgecolor='black')
-    plt.axvline(alert_threshold, color='red', linestyle='--', linewidth=2)
+    plt.hist(sensor_values, bins=np.arange(min_sensor_value - 0.5, max_sensor_value + 1.5, 1), rwidth=0.8, color='blue', edgecolor='black')
+    plt.axvline(alert_threshold, color='red', linestyle='--', linewidth=2, label = f'Alert Threshold: {alert_threshold}')
     plt.title(f"{sensor_selection.capitalize()} Sensor Readings Histogram")
     plt.xlabel("Sensor Values")
     plt.ylabel("Frequency")
-    plt.text(alert_threshold, plt.ylim()[1]*1.1, f'Alert Threshold: {alert_threshold}', color='red', rotation=0)
+    plt.legend()
     plt.show(block=False)
-
+   
 
 def plot_grid(sensor_values, num_of_readings, alert_threshold, sensor_selection):
     """Deze functie maakt een lijngrafiek van de sensor readings. Dit wordt gedaan met matplotlib.pyplot. De lijngrafiek wordt gemaakt met plt.plot op een eigen figure functie. 
-    De range wordt bepaalde met de hoeveelheid readings. Verder worden de sensor waarden erin gezet en de stijl van de grafiek gemaakt. Er wordt een titel, x en y as label toegevoegd en 
+    De range wordt bepaalde met de hoeveelheid readings. Verder worden de sensor waarden erin gezet en de stijl van de grafiek gemaakt. 
+    Er wordt een titel, x en y as label toegevoegd en 
     de alert threshold wordt weergegeven met een rode stipppellijn die de functie axhline plot."""
     plt.figure()
     plt.grid()
-    plt.plot(range(num_of_readings), sensor_values, linestyle='-', color='steelblue')
-    plt.axhline(alert_threshold, color='red', linestyle='--', linewidth=2)
+    plt.plot(range(num_of_readings), sensor_values, linestyle='-', color='blue')
+    plt.axhline(alert_threshold, color='red', linestyle='--', linewidth=2,label=f'Alert Threshold: {alert_threshold}')
     plt.title(f"{sensor_selection.capitalize()} Sensor Readings Line Sample")
     plt.xlabel("Reading Index")
     plt.ylabel("Sensor Values")
-    plt.text(0, alert_threshold + 0.5, f'Alert Threshold: {alert_threshold}', color='red')
-    plt.show()
+    plt.legend() 
+    plt.show()  
 
 
 #__5__SAVING DATA__ -----------------------------------------------------
