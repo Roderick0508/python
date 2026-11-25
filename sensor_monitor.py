@@ -128,7 +128,7 @@ def get_user_input():
     return (sensor_selection, num_of_readings, min_sensor_value, max_sensor_value, alert_threshold)
  
 
-#__2__GENERATE SENSOR VALUES__ ---------------------------------------------
+#__2__GENERATE SENSOR VALUES__ --------------------------------------------- 
 def generate_readings(num_of_readings, min_sensor_value, max_sensor_value):
     """Deze functie genereert een lijst met willekeurige getallen. Dit wordt gedaan op basis van 3 invoer parameters. 
     Deze bepalen de hoeveelheid gegenereerde getallen en de min en max waarden. Dit wordt direct gedaan met de randomo.uniform functie.
